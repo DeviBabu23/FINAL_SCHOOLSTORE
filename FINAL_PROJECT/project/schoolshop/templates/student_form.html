@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Roboto;
+            background: url('{% static "images/bg3.jpg" %}') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8); /* Adjust the background color and opacity */
+            padding: 20px; /* Adjust padding as needed */
+            border-radius: 10px; /* Adjust border-radius for rounded corners */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle box shadow */
+        }
+
+        h2 {
+            text-align: center;
+            color: #333; /* Adjust the color as needed */
+        }
+
+        /* Style for the submit button in the form */
+        input[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #007bff; /* Adjust background color as needed */
+            border: 2px solid #007bff; /* Adjust border color as needed */
+            border-radius: 5px; /* Adjust border-radius for rounded corners */
+            transition: background-color 0.3s ease, color 0.3s ease;
+            cursor: pointer;
+        }
+
+        /* Change color on hover */
+        input[type="submit"]:hover {
+            background-color: #0056b3; /* Adjust hover background color as needed */
+            border-color: #0056b3; /* Adjust hover border color as needed */
+            color: #fff;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+    <h2>Student Information Form</h2>
+    <form method="post" action="{% url 'student_form' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <!-- Department dropdown -->
+
+    <!-- Dynamic Course dropdown -->
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    var departmentSelect = document.getElementById("id_department");
+    var courseSelect = document.getElementById("id_course");
+
+    departmentSelect.addEventListener("change", function () {
+        var departmentId = this.value;
+
+        // Make an AJAX request to fetch courses related to the selected department
+        fetch(`/get_courses/?department_id=${departmentId}`)
+            .then(response => response.json())
+            .then(data => {
+                // Clear existing options
+                courseSelect.innerHTML = '';
+
+                // Add new options based on the fetched data
+                data.forEach(course => {
+                    var option = document.createElement('option');
+                    option.value = course.id;
+                    option.text = course.name;
+                    courseSelect.add(option);
+                });
+
+                // Enable the course dropdown
+                courseSelect.disabled = false;
+            })
+            .catch(error => console.error('Error:', error));
+    });
+});
+</script>
+
+
+
+
+
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+</body>
+</html>

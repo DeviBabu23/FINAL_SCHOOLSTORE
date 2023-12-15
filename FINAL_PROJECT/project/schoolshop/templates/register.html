@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <title>Register</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Roboto;
+            background: url('{% static "images/bg2.jpg" %}') no-repeat;
+            background-size: cover;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .center {
+            width: 29vw;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            animation: fadeInUp 1s ease-out; /* Add fade-in animation */
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Add hover effect on form submit button */
+        input[type="submit"]:hover {
+            background: #2691d9;
+            color: #e9f4fb;
+            transition: background 0.5s ease;
+        }
+
+        /* Add animation for form fields */
+        .txt_field {
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .txt_field input {
+            width: 100%;
+            padding: 0 5px;
+            height: 40px;
+            font-size: 16px;
+            border: none;
+            background: none;
+            outline: none;
+        }
+
+        .txt_field label {
+            position: absolute;
+            top: 50%;
+            left: 5px;
+            color: #adadad;
+            transform: translateY(-50%);
+            font-size: 16px;
+            pointer-events: none;
+            transition: 0.5s;
+        }
+
+        .txt_field span::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 0;
+            width: 0px;
+            height: 2px;
+            background: #2691d9;
+            transition: 0.5s;
+        }
+
+        .txt_field input:focus ~ label,
+        .txt_field input:valid ~ label {
+            top: -5px;
+            color: #2691d9;
+        }
+
+        .txt_field input:focus ~ span::before,
+        .txt_field input:valid ~ span::before {
+            width: 100%;
+        }
+    </style>
+
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+    <body>
+        <div class="container">
+            <div class="center">
+                <h1>Register Here!</h1>
+
+                <!-- Include this in your template where you want to display messages -->
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <form action="{% url 'register' %}" method="POST">
+                    {% csrf_token%}
+                    <div class="txt_field">
+                        <input type="text" name="username" required>
+                        <span></span>
+                        <label>Username</label>
+                    </div>
+                    <div class="txt_field">
+                        <input type="password" name="password" required>
+                        <span></span>
+                        <label>Password</label>
+                    </div>
+                    <div class="txt_field">
+                        <input type="password" name="cpassword" required>
+                        <span></span>
+                        <label>Confirm Password</label>
+                    </div>
+
+                    <input name="submit" type="Submit" value="Submit">
+                </form>
+            </div>
+        </div>
+    </body>
+{% endblock %}

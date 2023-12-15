@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Student</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Roboto;
+            background: url('{% static "images/bg3.jpg" %}') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h2 {
+            color: #fff;
+            text-align: center;
+        }
+
+        /* Assuming you have a 'button' class in your CSS */
+        .button {
+            display: inline-block;
+            padding: 10px 20px; /* Adjust padding as needed */
+            margin: 10px; /* Adjust margin as needed */
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #007bff; /* Adjust background color as needed */
+            border: 2px solid #007bff; /* Adjust border color as needed */
+            border-radius: 5px; /* Adjust border-radius for rounded corners */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Change color on hover */
+        .button:hover {
+            background-color: #0056b3; /* Adjust hover background color as needed */
+            border-color: #0056b3; /* Adjust hover border color as needed */
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <h2>{{ message }}</h2>
+    <br>
+    <br>
+
+    <!-- Logout box (assuming you have a logout link in your base template) -->
+    <a href="{% url 'logout' %}" class="button">Logout</a>
+
+    <!-- Link to return to the home page -->
+    <a href="{% url 'home' %}" class="button">Return to Home</a>
+</body>
+</html>

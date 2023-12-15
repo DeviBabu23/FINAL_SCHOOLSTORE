@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Roboto;
+        background: url('{% static "images/ac.jpg" %}') no-repeat;
+        background-size: cover;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .fadeInUp {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 1s ease-out forwards;
+    }
+
+    .col-md-6 {
+        text-align: center; /* Center content in the left column */
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+<div class="container mt-5">
+    <!-- First Row: Text Content and Image -->
+    <div class="row mb-4 mt-3 align-items-center"> <!-- Added align-items-center for vertical centering -->
+        <div class="col-md-6 d-flex flex-column justify-content-center align-items-start fadeInUp">
+            <h1>ACADEMIC SUPPLIES</h1>
+            <p>
+                DELIVERED AT YOUR DOORSTEP
+                <br>
+                <u>____________________________</u>
+            </p>
+            <a href="{% url 'login' %}" class="btn btn-primary btn-lg">Login Here..</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
